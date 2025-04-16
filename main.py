@@ -24,6 +24,7 @@ def add_task():
     save_tasks(tasks)
 
 def show_tasks():
+    print()
     print("Twoje zadania: ")
     for index, task in enumerate(tasks, start=1):
         status = "[x]" if task["done"] else "[ ]"
@@ -47,6 +48,22 @@ def delete_task():
 
     save_tasks(tasks)
     print("Zadanie usunięte.")
+
+def edit_task():
+    show_tasks()
+    selected = int(input("Które zadanie chcesz edytować: ")) - 1
+    if 0 <= selected < len(tasks):
+        new_title = input("Podaj nową treść zadania: ")
+        if new_title.strip() == "":
+            print("Nie można ustawić pustej treści.")
+        else:
+            tasks[selected]["title"] = new_title
+    else:
+        print("Nieprawidłowy numer zadania.")
+    
+    save_tasks(tasks)
+    print("Zadanie zostało zaktualizowane.")
+
     
 tasks = load_tasks()
 
@@ -57,7 +74,8 @@ while True:
     print("2. Pokaż zadania")
     print("3. Oznacz jako wykonane")
     print("4. Usuń zadanie")
-    print("5. Wyjdź")
+    print("5. Edytuj zadanie")
+    print("6. Wyjdź")
     print()
 
     wybór = int(input("Twój wybór: "))
@@ -71,6 +89,8 @@ while True:
     elif wybór == 4:
         delete_task()
     elif wybór == 5:
+        edit_task()
+    elif wybór == 6:
         break
     else:
         print("Nieprrawidłowy wybór, spróbuj ponownie.")
