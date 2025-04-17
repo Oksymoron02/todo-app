@@ -64,6 +64,16 @@ def edit_task():
     save_tasks(tasks)
     print("Zadanie zostało zaktualizowane.")
 
+def show_tasks_filtered(done_status):
+    for i, task in enumerate(tasks, start=1):
+        if task["done"] == done_status:
+            if task["done"]:
+                status = "[x]"
+            else:
+                status = "[ ]"
+            print(f"{i}. {status} {task['title']}")
+                  
+
     
 tasks = load_tasks()
 
@@ -75,7 +85,9 @@ while True:
     print("3. Oznacz jako wykonane")
     print("4. Usuń zadanie")
     print("5. Edytuj zadanie")
-    print("6. Wyjdź")
+    print("6. Pokaż zrobione zadania")
+    print("7. Pokaż niezrobione zadania")
+    print("8. Wyjdź")
     print()
 
     wybór = int(input("Twój wybór: "))
@@ -91,6 +103,10 @@ while True:
     elif wybór == 5:
         edit_task()
     elif wybór == 6:
+        show_tasks_filtered(True)
+    elif wybór == 7:
+        show_tasks_filtered(False)
+    elif wybór == 8:
         break
     else:
         print("Nieprrawidłowy wybór, spróbuj ponownie.")
